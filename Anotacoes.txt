@@ -1,0 +1,55 @@
+> Validacao com annotations na classe de ViewModel
+> ModelState para validar se o modelo e valido
+> É possível criar o formulário todo a partir do EditorForModel ou ir criando por parte, por campos, dentro das divs
+> Colocar o value do campo como o value do model e passar um model vazio quando chamar a pagina via HttpGet
+> Importante colocar via ActionLink para caso a rota seja alterada
+> Table Table-hover para a tabela ficar bonita em bs
+
+Session["chave"] - Guarda as informações numa sessão
+
+Para excluir produto via Ajax utilizar
+	<a href="/Controller/Action/"@model.Id>Botao de excluir</a>
+	<a href="#" onclick="metodo(@model.Id)">Botao de excluir</a>
+
+
+Mostrar erro
+	@Html.ValidationMessage("nomeDoCampo")
+
+Adicionar error ao ModelState
+	> ModelState.AddModelError("nomeErro", "Mensagem de erro que deseja que mostre");
+
+_ViewStart - Contem variaveis comuns a todas as views
+
+Annotations
+	Required com ErrorMessage
+	StringLength(sizeString)
+	[DataType(DataType.TypeField)]
+	[HiddenInput(DisplayValue = false)]
+	Range(valorMinimo, valorMaximo)
+
+Exibir todos os erros numa div do bootstrap
+
+    if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+    {
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            @Html.ValidationSummary(true, "Errors: ")
+        </div>
+    }
+
+
+Criacao de Links Razor
+
+@Html.ActionLink("Texto link", "Action")
+@Html.ActionLink("Texto link", "Action", "RotaPadrao")
+@Html.ActionLink("Home", "Index", "Home/Index")
+
+Gerar link passando parametro
+
+@Html.ActionLink("Texto link", "Action", new {id = produto.Id})
+
+
+Para alterar a rota padrao é necessário alterar no RouteConfig
+	> routes.MapMvcAttributeRoutes
+	> [Route("nomeRota")]
+	> [Route("produtos/{nomeValor}")]
